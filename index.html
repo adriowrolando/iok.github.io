@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>@Portfolio_Iok.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet"/>
+        <style>
+		 @media (max-width: 640px) {
+            /* Home Section */
+            #home .flex {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            #home .text-left {
+                text-align: center;
+                margin-left: 0;
+            }
+
+            #home .ml-20 {
+                margin-left: 0;
+            }
+
+            #home .translate-x-20 {
+                transform: translateX(0);
+            }
+
+            #home .mt-10 {
+                margin-top: 1rem;
+            }
+
+            /* Services Section */
+            #services .grid {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            /* Portfolios Section */
+            #portfolios .cards {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            #portfolios .card {
+                width: 90%;
+            }
+
+            /* Freelance Section */
+            #freelance .grid {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            /* Contact Section */
+            #contact .max-w-md {
+                width: 90%;
+            }
+
+            /* General Centering */
+            section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            scroll-behavior: smooth;
+        }
+		 h1, h2, h3, h4, h5, h6 {
+        font-family: 'Poppins', sans-serif;
+		}
+	
+		.monospace {
+			font-family: 'Source Code Pro', monospace;
+		}
+		figure {
+		text-align: center; /* Memusatkan gambar dan keterangan */
+		margin: 20px; /* Menambahkan jarak antara gambar */
+		}
+		
+		figcaption {
+			font-size: 14px; /* Ukuran font untuk keterangan */
+			color: #EAB308; /* Warna teks untuk keterangan */
+			margin-top: 5px; /* Jarak antara gambar dan keterangan */
+		}
+		footer {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			background-color: #000 ;
+		}
+		html {
+			scroll-behavior: smooth;
+			}
+		.svgIcon {
+            width: 12px;
+            transition-duration: 0.3s;
+        }
+        .button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: solid #EAB308;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+            cursor: pointer;
+            transition-duration: 0.3s;
+            overflow: hidden;
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .svgIcon path {
+            fill: white;
+        }
+        .button:hover {
+            width: 140px;
+            border-radius: 50px;
+            transition-duration: 0.3s;
+            background-color: transparent;
+            align-items: center;
+        }
+
+        .button:hover .svgIcon {
+            transition-duration: 0.3s;
+            transform: translateY(-200%);
+        }
+
+        .button::before {
+            position: absolute;
+            bottom: -20px;
+            content: "Back to Top";
+            color: white;
+            font-size: 0px;
+            transition-duration: 0.3s;
+            opacity: 0;
+        }
+
+        .button:hover::before {
+            font-size: 13px;
+            opacity: 1;
+            bottom: unset;
+            transition-duration: 0.3s;
+        }
+
+        .button::after {
+            position: absolute;
+            content: ".";
+            color: solid #EAB308;
+            font-size: 0px;
+            opacity: 0;
+            transition-duration: 0.3s;
+        }
+
+        .button:hover::after {
+            font-size: 13px;
+            opacity: 1;
+            transition-duration: 0.3s;
+        }
+
+        #back-to-top {
+            display: none;
+        }
+
+        #back-to-top.show {
+            display: flex;
+        }
+
+        #mobile-menu {
+            display: none;
+        }
+
+        #mobile-menu.show {
+            display: flex;
+        }
+        .flip-card {
+            background-color: transparent;
+            width: 190px;
+            height: 254px;
+            perspective: 1000px;
+            font-family: sans-serif;
+        }
+        .title {
+            font-size: 1.25em; /* Adjusted font size for better readability */
+            font-weight: 700; /* Slightly reduced font weight */
+            text-align: center;
+            margin: 0;
+            color: white;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border: 1px solid #f59e0b; /* yellow-500 */
+            border-radius: 1rem;
+            background-color: transparent;
+            transition: background-color 0.8s;
+        }
+        .flip-card:hover .flip-card-front, .flip-card:hover .flip-card-back {
+            background-color: #f59e0b; /* yellow-500 */
+        }
+        .flip-card-front {
+            color: #f59e0b; /* yellow-500 */
+        }
+        .flip-card-back {
+            color: #f59e0b; /* yellow-500 */
+            transform: rotateY(180deg);
+        }
+        .flip-card p {
+            font-size: 1em; /* Adjusted font size for better readability */
+            color: white;
+        }
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+   }
+
+   .cards .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 300px;
+    width: 200px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+    position: relative;
+   }
+
+   .cards .card:hover {
+    transform: scale(1.1, 1.1);
+   }
+
+   .cards:hover > .card:not(:hover) {
+    filter: blur(10px);
+    transform: scale(0.9, 0.9);
+   }
+
+   .book {
+    position: relative;
+    border-radius: 10px;
+    width: 220px;
+    height: 300px;
+    background-color: #f59e0b;
+    box-shadow: 1px 1px 12px #000;
+    transform: preserve-3d;
+    perspective: 2000px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    color: #000;
+   }
+
+   .cover {
+    top: 0;
+    position: absolute;
+    background-color: #f59e0b;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+    transform-origin: 0;
+    box-shadow: 1px 1px 12px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   }
+
+   .book:hover .cover {
+    transition: all 0.5s;
+    transform: rotateY(-80deg);
+	justify-content: center;
+   }
+
+   p {
+   }
+		 .burger {
+            position: relative;
+            width: 40px;
+            height: 30px;
+            background: transparent;
+            cursor: pointer;
+            display: block;
+        }
+
+        .burger input {
+            display: none;
+        }
+
+        .burger span {
+            display: block;
+            position: absolute;
+            height: 4px;
+            width: 100%;
+            background: white;
+            border-radius: 9px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .burger span:nth-of-type(1) {
+            top: 0px;
+            transform-origin: left center;
+        }
+
+        .burger span:nth-of-type(2) {
+            top: 50%;
+            transform: translateY(-50%);
+            transform-origin: left center;
+        }
+
+        .burger span:nth-of-type(3) {
+            top: 100%;
+            transform-origin: left center;
+            transform: translateY(-100%);
+        }
+
+        .burger input:checked ~ span:nth-of-type(1) {
+            transform: rotate(45deg);
+            top: 0px;
+            left: 5px;
+        }
+
+        .burger input:checked ~ span:nth-of-type(2) {
+            width: 0%;
+            opacity: 0;
+        }
+
+        .burger input:checked ~ span:nth-of-type(3) {
+            transform: rotate(-45deg);
+            top: 28px;
+            left: 5px;
+        }
+
+        .nav-menu {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 0;
+            transform: translateX(10px);
+        }
+
+        .nav-menu.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+      <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-6 bg-gray-800 h-24">
+        <div class="text-4xl font-bold text-white">
+            Iok<span class="text-yellow-500">.</span>
+        </div>
+        <div class="relative">
+            <label class="burger" for="burger">
+                <input type="checkbox" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <nav class="nav-menu absolute right-0 w-35 bg-gray-800 rounded-lg shadow-lg hidden flex-col" id="nav-menu">
+                <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#home">Home</a>
+                <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#services">Services</a>
+                <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#portfolios">Portfolios</a>
+                <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#freelance">Freelance</a>
+                <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hamburger Menu -->
+    <div id="mobile-menu" class="md:hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 hidden">
+        <div class="flex justify-end p-4">
+            <button id="close-menu" class="text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="flex flex-col items-center mt-10">
+            <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#home">Home</a>
+            <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#services">Services</a>
+            <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#portfolios">Portfolios</a>
+            <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#freelance">Freelance</a>
+            <a class="block px-4 py-2 text-gray-300 hover:text-white" href="#contact">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Home Section -->
+    <section class="bg-gray-800 text-center py-20 scroll-mt-24 grid place-items-center" data-aos="fade-up" id="home">
+        <div class="flex flex-col md:flex-row items-center justify-center transform translate-x-20">
+            <div class="md:mr-10 text-left" data-aos="fade-up" data-aos-delay="100">
+                <h1 class="text-5xl font-bold text-white text-left">
+                    Adrio <br/> Welly <br/> Rolando<span class="text-yellow-500">.</span>
+                </h1>
+                <h4 class="text-4xl font-bold text-yellow-500 text-left transform -translate-y-">
+                    __
+                </h4>
+                <p class="mt-4">
+                    <a class="text-dark-grey-500 hover:text-white" href="https://www.instagram.com/adriowrolando_" target="_blank">Instagram</a> |
+                    <a class="text-dark-grey-500 hover:text-white" href="https://www.facebook.com/adrio.evil" target="_blank">Facebook</a><br/>
+                    <a class="text-dark-grey-500 hover:text-white" href="https://wa.me/6285773009835" target="_blank">Whatsapp</a> |
+                    <a class="text-dark-grey-500 hover:text-white" href="https://www.linkedin.com/in/adriowrolando/" target="_blank">LinkedIn</a>
+                </p>
+				<a href="#contact">
+                <button class="mt-6 px-6 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-gray-900 rounded-full" 
+                     href="#contact"> Contact Me
+                </button>
+				</a>
+            </div>
+            <div class="mt-10 md:mt-0" data-aos="fade-up" data-aos-delay="200">
+                <img alt="Adrio Welly Rolando's portrait" class="mx-auto my-auto rounded-full" height="600" src="src\poto profile.png" width="400"/>
+            </div>
+            <div class="md:mr-10 text-left" data-aos="fade-up" data-aos-delay="300">
+                <h2 class="text-yellow-500 text-sm font-bold ml-20 transform -translate-y-4">INTRODUCTION</h2>
+                <h3 class="text-3xl font-bold text-white mt-2 ml-20">IT Enthusiast<span class="text-yellow-500">,</span><br/> Bug Finder<span class="text-yellow-500">,</span><br/>Engineer<span class="text-yellow-500">.</span></h3>
+                <p class="mt-4 max-w-3xl ml-20">
+                    I am a Quality Assurance Specialist <br/> with 6+ years of experience in software testing, <br/> defect management, and cross-functional collaboration. <br/> Proficient in SQL, Java, Python, and JIRA, <br/> with ISTQB® Foundation Level certification.
+                </p>
+            </div>
+        </div>
+    </section>
+
+ <!-- Services Section -->
+<section class="py-20" data-aos="fade-up" id="services">
+        <div class="text-center">
+            <h2 class="text-yellow-500 text-sm font-bold">SERVICES</h2>
+            <h3 class="text-3xl font-bold text-white mt-2">What Am I Providing</h3>
+            <p class="mt-4 max-w-3xl mx-auto">
+                If you want any of the following services please go on the freelance section <br/> there you can find some of the freelance platforms <br/> where I am available.
+            </p>
+        </div>
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <div class="flip-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-bug text-4xl text-yellow-500"></i>
+                        <h4 class="mt-4 text-xl  title">Bug <br/> Finder</h4>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 class="mt-4 text-l title">Bug <br/> Finder</h4>
+						<br/>
+                        <p>Find and Fix Bugs <br/> in your Code.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-desktop text-4xl text-yellow-500"></i>
+                        <h4 class="mt-4 text-xl title">UI / UX <br/> Designing</h4>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 class="mt-4 text-l title">UI / UX <br/> Designing</h4>
+                        <br/>
+						<p>Create User-Friendly Interfaces.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-code text-4xl text-yellow-500"></i>
+                        <h4 class="mt-4 text-xl title">Web <br/> Development</h4>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 class="mt-4 text-l title">Web <br/> Development</h4>
+                        <br/>
+						<p>Build Responsive and Dynamic Websites.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-video text-4xl text-yellow-500"></i>
+                        <h4 class="mt-4 text-xl title">Video <br/> Editing</h4>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4 class="mt-4 text-l title">Video <br/> Editing</h4>
+                        <br/>
+						<p>Edit and Produce <br/> High-Quality Videos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-20">
+            <a href="https://wa.me/6287787600835" target="_blank" class="px-6 py-3 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-gray-900 rounded-full inline-block">
+                Buy Service
+            </a>
+        </div>
+    </section>
+
+    <!-- Portfolios Section -->
+	  <section class="bg-gray-800 py-20" id="portfolios">
+   <div class="text-center">
+    <h2 class="text-yellow-500 text-sm font-bold">
+     PORTFOLIOS
+    </h2>
+    <h3 class="text-3xl font-bold text-white mt-2">
+     My Portfolios Collection
+    </h3>
+    <p class="mt-4 max-w-3xl mx-auto">
+     These are some of my own portfolios I made recently.
+     <br/>
+     Have a look at them and let me know,
+     <br/>
+     If you like them.
+    </p>
+    <div class="border-t-4 border-yellow-500 w-48 mx-auto mt-10 mb-30">
+    </div>
+   </div>
+	<div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto cards mt-10">
+ <a class="bg-yellow-500 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="to-do-list/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       App
+       <br/>
+       To-Do List
+      </figcaption>
+      <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&amp;id=8118&amp;format=png&amp;color=000000"/>
+     </div>
+	 <div class="flex">
+      <img alt="Screenshot of a To-Do List Application showing tasks and checkboxes" class="w-4/5 h-full object-cover ml-auto" height="400" src="https://storage.googleapis.com/a1aa/image/4_f5f_VuOxE3b49Ad8ZEobOJMCY6BWu0SQmQXyvnwjE.jpg" width="600"/>
+     </div>
+   </a>
+    <a class="bg-gray-700 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="notes_app (CLI)/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       App
+       <br/>
+       Notes(CLI)
+      </figcaption>
+	  <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&id=TWVL3qGCOW3R&format=png&color=000000"/>
+     </div>
+	 <div class="flex justify-end">
+     <img alt="Screenshot of a Notes Application CLI showing command line interface with notes" class="w-4/5 h-full object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/8fiAAVupt8qPjvsyWpNr3iyPVdMWae4ElxjYBbd9960.jpg" width="600"/>
+    </div>
+	</a>
+    <a class="bg-gray-700 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="jam_digital_sederhana/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       App
+       <br/>
+       Jam Digital
+      </figcaption>
+	  <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&id=112391&format=png&color=000000"/>
+     </div>
+	 <div class="flex justify-end">
+     <img alt="Screenshot of a digital clock" class="w-4/5 h-full object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/tQApEJp7aOPfs0-_t34h7D178AkU7gcqpRNgbQeKLp0.jpg" width="600"/>
+    </div>
+	</a>
+    <a class="bg-gray-700 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="color_picker_app/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       App
+       <br/>
+       Color Picker App
+      </figcaption>
+	  <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&id=zBUybUsKtaEK&format=png&color=000000"/>
+     </div>
+	 <div class="flex justify-end">
+     <img alt="Icon representing a color palette with various colors" class="w-4/5 h-full object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/t3kF8DhS7kQ0eHX5inGkYpIRfyD3v4LCBnyGGqfQqzk.jpg" width="600"/>
+    </div>
+	</a>
+    <a class="bg-gray-700 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="kejar_tulang/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       Game
+       <br/>
+       Kejar Tulangnya
+      </figcaption>
+	  <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&id=101734&format=png&color=000000"/>
+     </div>
+	 <div class="flex justify-end">
+     <img alt="Screenshot of a number guessing game interface" class="w-4/5 h-full object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/t3kF8DhS7kQ0eHX5inGkYpIRfyD3v4LCBnyGGqfQqzk.jpg" width="600"/>
+    </div>
+	</a>
+    <a class="bg-gray-700 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="guess_words/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       Game
+       <br/>
+       Guess the Words
+      </figcaption>
+	  <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&id=35191&format=png&color=000000"/>
+     </div>
+	 <div class="flex justify-end">
+     <img alt="Screenshot of a guess the words game interface showing a word puzzle" class="w-4/5 h-full object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/TP2uORqUedoxPaKFXgUaAtLOlM4vdLhaih8qh0WvgNI.jpg" width="600"/>
+    </div>
+	</a>
+    <a class="bg-gray-700 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="game_penghindaran/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       Game
+       <br/>
+       Penghindaran
+      </figcaption>
+	  <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&id=LBJHIzs1bDPt&format=png&color=000000"/>
+     </div>
+	 <div class="flex justify-end">
+     <img alt="Screenshot of a game interface showing an avoidance game" class="w-4/5 h-full object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/wtob83iws1S0fCWfuWUsY6g3OzRV1r0efaqcNs08tZE.jpg" width="600"/>
+	</div>	
+	</a>
+	<a class="bg-gray-700 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 card book" href="game_kumpulkan_bintang/index.html">
+     <div class="cover">
+      <figcaption class="text-black text-center mt-2 p-2 text-sm font-bold">
+       Game
+       <br/>
+       Kumpulkan Bintang
+      </figcaption>
+	  	  <img alt="Icon representing a to-do list with checkmarks" class="w-8 h-8 mt-2" src="https://img.icons8.com/?size=100&id=7856&format=png&color=000000"/>
+     </div>
+	 <div class="flex justify-end">
+     <img alt="Screenshot of a game interface showing a star collection game" class="w-4/5 h-full object-cover" height="400" src="https://storage.googleapis.com/a1aa/image/EMEBYb5lxBRzEO7J0l7d2kdazDqiawSFYFDlCd9kcxw.jpg" width="600"/>
+    </div>
+	</a>
+   </div>
+   <div class="border-t-4 border-yellow-500 w-48 mx-auto mt-10 mb-30"></div>
+  </section>
+  
+
+    <!-- Freelance Section -->
+    <section class="py-20" data-aos="fade-up" id="freelance">
+        <div class="text-center">
+            <h2 class="text-yellow-500 text-sm font-bold">FREELANCE</h2>
+            <h3 class="text-3xl font-bold text-white mt-2">Hire Me As A Freelancer</h3>
+            <p class="mt-4 max-w-3xl mx-auto">
+                I am available on different freelancing platforms. <br/> You can hire me on given platforms.
+            </p>
+        </div>
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
+            <div data-aos="zoom-in">
+                <h4 class="text-2xl font-bold text-yellow-500">FIVERR</h4>
+                <button class="mt-4 px-6 py-2 border border-white text-white hover:bg-yellow-500 hover:text-gray-900 rounded-full">
+                    Hire Me
+                </button>
+            </div>
+            <div data-aos="zoom-in">
+                <h4 class="text-2xl font-bold text-yellow-500">UPWORK</h4>
+                <button class="mt-4 px-6 py-2 border border-white text-white hover:bg-yellow-500 hover:text-gray-900 rounded-full">
+                    Hire Me
+                </button>
+            </div>
+            <div data-aos="zoom-in">
+                <h4 class="text-2xl font-bold text-yellow-500">GURU</h4>
+                <button class="mt-4 px-6 py-2 border border-white text-white hover:bg-yellow-500 hover:text-gray-900 rounded-full">
+                    Hire Me
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="bg-gray-800 py-16 px-4" data-aos="fade-up" id="contact">
+        <div class="text-center">
+            <h2 class="text-yellow-500 text-sm font-bold uppercase tracking-widest">CONTACT</h2>
+            <h3 class="text-3xl font-bold text-white mt-4">How To Contact Me</h3>
+            <p class="mt-4 max-w-3xl mx-auto text-base text-gray-300">
+                You can contact me by completing the given form. <br/> This form will directly send us a mail.
+            </p>
+        </div>
+        <div class="mt-8 max-w-md mx-auto space-y-4">
+            <!-- Nomor Telepon -->
+            <a href="tel:+6287787600835" class="bg-black p-4 rounded-full text-left w-full hover:bg-gray-900 transition-colors duration-300 block" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-phone-alt text-yellow-500 text-lg"></i>
+                <span class="text-base ml-3 text-white hover:text-yellow-500 transition-colors duration-300">+62 877-8760-0835</span>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:adriowrolando@gmail.com" class="bg-black p-4 rounded-full text-left w-full hover:bg-gray-900 transition-colors duration-300 block" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-envelope text-yellow-500 text-lg"></i>
+                <span class="text-base ml-3 text-white hover:text-yellow-500 transition-colors duration-300">adriowrolando@gmail.com</span>
+            </a>
+
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/adrio.evil" target="_blank" class="bg-black p-4 rounded-full text-left w-full hover:bg-gray-900 transition-colors duration-300 block" data-aos="fade-up" data-aos-delay="300">
+                <i class="fab fa-facebook text-yellow-500 text-lg"></i>
+                <span class="text-base ml-3 text-white hover:text-yellow-500 transition-colors duration-300">www.facebook.com/adrio.evil</span>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/adriowrolando_" target="_blank" class="bg-black p-4 rounded-full text-left w-full hover:bg-gray-900 transition-colors duration-300 block" data-aos="fade-up" data-aos-delay="400">
+                <i class="fab fa-instagram text-yellow-500 text-lg"></i>
+                <span class="text-base ml-3 text-white hover:text-yellow-500 transition-colors duration-300">www.instagram.com/adriowrolando_</span>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/adriowrolando/" target="_blank" class="bg-black p-4 rounded-full text-left w-full hover:bg-gray-900 transition-colors duration-300 block" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-link text-yellow-500 text-lg"></i>
+                <span class="text-base ml-3 text-white hover:text-yellow-500 transition-colors duration-300">https://www.linkedin.com/in/adriowrolando/</span>
+            </a>
+        </div>
+    </section>
+	
+	<!-- Button Back to Top -->
+	<button id="back-to-top" class="button">
+	<svg class="svgIcon" viewBox="0 0 384 512">
+    <path
+      d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+    ></path>
+	</svg>
+	</button>
+	
+	<!-- Footer -->
+<footer class="py-1">
+    <div class="container mx-auto text-center">
+        <p class="text-gray-300 font-sans inline">
+            &copy; 2025 Iok. All rights reserved.
+        </p>
+        <p class="text-gray-400 text-sm mt-2 font-mono inline">
+            Powered by AI
+        </p>
+    </div>
+</footer>
+
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Inisialisasi AOS
+        AOS.init({
+            duration: 1000, // Durasi animasi
+            // once: true, // Hapus baris ini agar animasi berjalan setiap kali elemen muncul
+        });
+
+        // Scroll smooth dan trigger AOS
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Mencegah perilaku default link
+                const targetId = this.getAttribute('href'); // Ambil ID target
+                const targetSection = document.querySelector(targetId); // Ambil elemen target
+
+                // Scroll ke section target dengan smooth
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Trigger AOS animasi pada section target
+                AOS.refresh(); // Refresh AOS untuk memastikan animasi berjalan
+            });
+        });
+
+        // Deteksi scroll ke atas dan refresh AOS
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop < lastScrollTop) {
+                // Scroll ke atas terdeteksi
+                AOS.refresh(); // Refresh AOS untuk memicu ulang animasi
+            }
+
+            lastScrollTop = scrollTop;
+        });
+		
+		// Menampilkan tombol "Back to Top" saat menggulir
+		window.addEventListener('scroll', function() {
+		const backToTopButton = document.getElementById('back-to-top');
+		if (window.scrollY > 300) { // Tampilkan tombol setelah menggulir 300px
+          backToTopButton.classList.add('show');
+		} else {
+          backToTopButton.classList.remove('show');
+		}
+		});
+
+		// Menambahkan fungsionalitas kembali ke atas
+		document.getElementById('back-to-top').addEventListener('click', function() {
+		window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // Animasi scroll
+		});
+		});
+		
+        document.getElementById('burger').addEventListener('change', function() {
+            const navMenu = document.getElementById('nav-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (this.checked) {
+                navMenu.classList.remove('hidden');
+                navMenu.classList.add('show');
+                mobileMenu.classList.remove('hidden');
+            } else {
+                navMenu.classList.remove('show');
+                setTimeout(() => {
+                    navMenu.classList.add('hidden');
+                    mobileMenu.classList.add('hidden');
+                }, 500);
+            }
+        });
+
+        document.getElementById('close-menu').addEventListener('click', function() {
+            document.getElementById('burger').checked = false;
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.remove('show');
+            setTimeout(() => {
+                navMenu.classList.add('hidden');
+                document.getElementById('mobile-menu').classList.add('hidden');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

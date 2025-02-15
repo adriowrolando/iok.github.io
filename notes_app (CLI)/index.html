@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Catatan Berbasis Teks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-blue-300 font-roboto min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-4">
+        <div class="bg-white shadow-2xl rounded-lg p-6 transform transition duration-500 hover:scale-105">
+            <h1 class="text-3xl font-bold mb-6 text-center text-blue-600">Aplikasi Catatan Berbasis Teks</h1>
+            <div class="flex justify-center mb-6">
+                <button id="showNotesBtn" class="bg-blue-500 text-white px-6 py-3 rounded-lg mx-2 hover:bg-blue-600 transition duration-300 transform hover:scale-110"><i class="fas fa-list"></i> Tampilkan Catatan</button>
+                <button id="addNoteBtn" class="bg-green-500 text-white px-6 py-3 rounded-lg mx-2 hover:bg-green-600 transition duration-300 transform hover:scale-110"><i class="fas fa-plus"></i> Tambah Catatan</button>
+                <button id="deleteNoteBtn" class="bg-red-500 text-white px-6 py-3 rounded-lg mx-2 hover:bg-red-600 transition duration-300 transform hover:scale-110"><i class="fas fa-trash"></i> Hapus Catatan</button>
+            </div>
+            <div id="notesContainer" class="mb-6">
+                <!-- Notes will be displayed here -->
+            </div>
+            <div id="inputContainer" class="mb-6 hidden">
+                <input type="text" id="noteInput" class="border border-gray-300 p-3 w-full rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan catatan">
+                <button id="saveNoteBtn" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300 transform hover:scale-110">Simpan Catatan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const notes = [];
+        const showNotesBtn = document.getElementById('showNotesBtn');
+        const addNoteBtn = document.getElementById('addNoteBtn');
+        const deleteNoteBtn = document.getElementById('deleteNoteBtn');
+        const notesContainer = document.getElementById('notesContainer');
+        const inputContainer = document.getElementById('inputContainer');
+        const noteInput = document.getElementById('noteInput');
+        const saveNoteBtn = document.getElementById('saveNoteBtn');
+
+        showNotesBtn.addEventListener('click', () => {
+            displayNotes();
+        });
+
+        addNoteBtn.addEventListener('click', () => {
+            inputContainer.classList.remove('hidden');
+        });
+
+        saveNoteBtn.addEventListener('click', () => {
+            const note = noteInput.value.trim();
+            if (note) {
+                notes.push(note);
+                noteInput.value = '';
+                inputContainer.classList.add('hidden');
+                displayNotes();
+            }
+        });
+
+        deleteNoteBtn.addEventListener('click', () => {
+            displayNotes(true);
+        });
+
+        function displayNotes(isDeleteMode = false) {
+            notesContainer.innerHTML = '';
+            if (notes.length === 0) {
+                notesContainer.innerHTML = '<p class="text-gray-500 text-center">Tidak ada catatan.</p>';
+            } else {
+                const ul = document.createElement('ul');
+                ul.classList.add('list-disc', 'pl-5');
+                notes.forEach((note, index) => {
+                    const li = document.createElement('li');
+                    li.classList.add('mb-2', 'flex', 'justify-between', 'items-center', 'bg-gray-100', 'p-3', 'rounded-lg', 'shadow-sm', 'transition', 'duration-300', 'transform', 'hover:scale-105');
+                    li.innerHTML = `<span>${note}</span>`;
+                    if (isDeleteMode) {
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.classList.add('bg-red-500', 'text-white', 'px-3', 'py-1', 'rounded-lg', 'hover:bg-red-600', 'transition', 'duration-300', 'transform', 'hover:scale-110');
+                        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                        deleteBtn.addEventListener('click', () => {
+                            notes.splice(index, 1);
+                            displayNotes();
+                        });
+                        li.appendChild(deleteBtn);
+                    }
+                    ul.appendChild(li);
+                });
+                notesContainer.appendChild(ul);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tebak Angka</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 font-roboto">
+    <div class="container mx-auto p-4">
+        <header class="text-center my-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Game Tebak Angka</h1>
+            <p class="text-lg text-gray-600">Selamat datang di game Tebak Angka! Coba tebak angka yang dipilih komputer antara 1 dan 100.</p>
+        </header>
+        
+        <main class="bg-white shadow-md rounded-lg p-6">
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2">Deskripsi Game</h2>
+                <p class="text-gray-600">Komputer akan memilih angka acak antara 1 dan 100. Pemain akan diminta untuk menebak angka tersebut. Setelah setiap tebakan, komputer akan memberi tahu apakah tebakan pemain terlalu tinggi, terlalu rendah, atau benar. Game berlanjut hingga pemain menebak angka yang benar.</p>
+            </section>
+            
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2">Kode Game</h2>
+                <pre class="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+<code class="language-java">
+import java.util.Random;
+import java.util.Scanner;
+
+public class GuessTheNumber {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        
+        int numberToGuess = random.nextInt(100) + 1; // Angka acak antara 1 dan 100
+        int numberOfTries = 0;
+        boolean hasGuessedCorrectly = false;
+
+        System.out.println("Selamat datang di game Tebak Angka!");
+        System.out.println("Saya telah memilih angka antara 1 dan 100.");
+        System.out.println("Coba tebak angka tersebut!");
+
+        while (!hasGuessedCorrectly) {
+            System.out.print("Masukkan tebakan Anda: ");
+            int playerGuess = scanner.nextInt();
+            numberOfTries++;
+
+            if (playerGuess < numberToGuess) {
+                System.out.println("Tebakan Anda terlalu rendah. Coba lagi!");
+            } else if (playerGuess > numberToGuess) {
+                System.out.println("Tebakan Anda terlalu tinggi. Coba lagi!");
+            } else {
+                hasGuessedCorrectly = true;
+                System.out.println("Selamat! Anda telah menebak angka " + numberToGuess + " dengan " + numberOfTries + " percobaan.");
+            }
+        }
+
+        scanner.close();
+    }
+}
+</code>
+                </pre>
+            </section>
+            
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2">Cara Menjalankan Game</h2>
+                <ol class="list-decimal list-inside text-gray-600 space-y-2">
+                    <li>Persiapkan Lingkungan: Pastikan kamu memiliki Java Development Kit (JDK) terinstal di komputermu. Kamu bisa mengunduhnya dari situs resmi Oracle.</li>
+                    <li>Buat File Java: Buat file baru dengan nama <code>GuessTheNumber.java</code> di editor teks atau IDE favoritmu.</li>
+                    <li>Salin Kode: Salin kode di atas ke dalam file <code>GuessTheNumber.java</code>.</li>
+                    <li>Kompilasi Kode: Buka terminal atau command prompt, navigasikan ke direktori tempat kamu menyimpan file, dan jalankan perintah berikut untuk mengompilasi kode:
+                        <pre class="bg-gray-100 p-4 rounded-lg overflow-x-auto"><code>javac GuessTheNumber.java</code></pre>
+                    </li>
+                    <li>Jalankan Game: Setelah berhasil dikompilasi, jalankan game dengan perintah berikut:
+                        <pre class="bg-gray-100 p-4 rounded-lg overflow-x-auto"><code>java GuessTheNumber</code></pre>
+                    </li>
+                </ol>
+            </section>
+            
+            <section class="mb-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2">Cara Menjalankan Game dengan Online Compiler</h2>
+                <ol class="list-decimal list-inside text-gray-600 space-y-2">
+                    <li>Buka browser dan kunjungi situs <a href="https://www.jdoodle.com" class="text-blue-500 hover:underline">JDoodle</a> atau <a href="https://www.onlinegdb.com" class="text-blue-500 hover:underline">OnlineGDB</a>.</li>
+                    <li>Pilih bahasa pemrograman Java.</li>
+                    <li>Salin kode di atas dan tempelkan ke dalam editor kode di situs tersebut.</li>
+                    <li>Klik tombol "Run" untuk menjalankan kode.</li>
+                    <li>Ikuti instruksi di konsol untuk memasukkan tebakan.</li>
+                </ol>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2">Cara Bermain</h2>
+                <ol class="list-decimal list-inside text-gray-600 space-y-2">
+                    <li>Setelah menjalankan game, ikuti instruksi di konsol untuk memasukkan tebakan.</li>
+                    <li>Game akan memberi tahu apakah tebakan kamu terlalu tinggi, terlalu rendah, atau benar.</li>
+                    <li>Game berlanjut hingga kamu menebak angka yang benar.</li>
+                </ol>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-8 text-gray-600">
+            <p>&copy; 2023 Game Tebak Angka. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

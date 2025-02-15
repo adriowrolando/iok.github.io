@@ -1,0 +1,128 @@
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Penghindaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+        }
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center h-screen bg-blue-300 overflow-hidden">
+    <div class="relative w-96 h-[600px] border-2 border-gray-800 bg-white overflow-hidden">
+        <div class="player absolute bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-12">
+            <img src="https://img.icons8.com/?size=100&id=121393&format=png&color=000000" alt="Icon of a black dog facing forward" class="w-full h-full object-contain">
+        </div>
+        <h1 class="game-over hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-red-600">Game Over!</h1>
+        <button class="start-over hidden absolute top-3/5 left-1/2 transform -translate-x-1/2 px-4 py-2 text-lg bg-green-600 text-white border-none cursor-pointer hover:bg-green-500">Start Over</button>
+    </div>
+    <script>
+        const player = document.querySelector('.player');
+        const gameContainer = document.querySelector('.relative');
+        const gameOverText = document.querySelector('.game-over');
+        const startOverButton = document.querySelector('.start-over');
+        let isGameOver = false;
+
+        function createObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle', 'absolute', 'w-12', 'h-12');
+            obstacle.style.left = Math.random() * (gameContainer.clientWidth - 50) + 'px';
+            obstacle.innerHTML = '<img src="https://img.icons8.com/?size=100&id=6D2PEDy8WnZq&format=png&color=000000" alt="Icon of a black bomb with a lit fuse" class="w-full h-full object-contain">';
+            gameContainer.appendChild(obstacle);
+
+            let obstacleInterval = setInterval(() => {
+                if (isGameOver) {
+                    clearInterval(obstacleInterval);
+                    return;
+                }
+
+                let obstaclePosition = parseInt(window.getComputedStyle(obstacle).getPropertyValue('top'));
+
+                if (obstaclePosition > gameContainer.clientHeight) {
+                    clearInterval(obstacleInterval);
+                    obstacle.remove();
+                } else {
+                    obstacle.style.top = obstaclePosition + 15 + 'px';
+                }
+
+                if (detectCollision(player, obstacle)) {
+                    clearInterval(obstacleInterval);
+                    isGameOver = true;
+                    gameOverText.classList.remove('hidden');
+                    startOverButton.classList.remove('hidden');
+                    createExplosion();
+                }
+            }, 20);
+        }
+
+        function detectCollision(player, obstacle) {
+            const playerRect = player.getBoundingClientRect();
+            const obstacleRect = obstacle.getBoundingClientRect();
+
+            return !(
+                playerRect.top > obstacleRect.bottom ||
+                playerRect.bottom < obstacleRect.top ||
+                playerRect.right < obstacleRect.left ||
+                playerRect.left > obstacleRect.right
+            );
+        }
+
+        function createExplosion() {
+            const explosion = document.createElement('div');
+            explosion.classList.add('explosion', 'absolute', 'w-full', 'h-full', 'top-0', 'left-0', 'flex', 'justify-center', 'items-center');
+            explosion.innerHTML = '<img src="hhttps://img.icons8.com/?size=100&id=uArNmXf1OK1h&format=png&color=000000" alt="Icon of an explosion with a black and white color scheme" class="w-full h-full object-contain">';
+            explosion.style.animation = 'explode 2s forwards';
+            gameContainer.appendChild(explosion);
+
+            setTimeout(() => {
+                explosion.remove();
+            }, 500);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (isGameOver) return;
+
+            const playerPosition = parseInt(window.getComputedStyle(player).getPropertyValue('left'));
+
+            if (event.key === 'ArrowLeft' && playerPosition > 0) {
+                player.style.left = playerPosition - 15 + 'px';
+            } else if (event.key === 'ArrowRight' && playerPosition < gameContainer.clientWidth - 50) {
+                player.style.left = playerPosition + 15 + 'px';
+            }
+        });
+
+        setInterval(() => {
+            if (!isGameOver) {
+                createObstacle();
+            }
+        }, 1000);
+
+        function startOver() {
+            isGameOver = false;
+            gameOverText.classList.add('hidden');
+            startOverButton.classList.add('hidden');
+            player.style.left = '50%';
+            player.style.transform = 'translateX(-50%)';
+
+            const obstacles = document.querySelectorAll('.obstacle');
+            obstacles.forEach(obstacle => obstacle.remove());
+        }
+
+        startOverButton.addEventListener('click', startOver);
+    </script>
+</body>
+</html>

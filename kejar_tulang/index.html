@@ -1,0 +1,186 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        #gameCanvas {
+            border: 1px solid #000;
+            background-color: #1a1a1a;
+        }
+        #gameOverPopup {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-black flex items-center justify-center h-screen">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold mb-4 text-yellow-500">Dog Game</h1>
+        <canvas id="gameCanvas" width="900" height="600" class="mx-auto"></canvas>
+        <div class="mt-4">
+            <button id="startButton" class="bg-yellow-500 text-black px-4 py-2 rounded">Start Game</button>
+        </div>
+        <div class="mt-4">
+            <h2 class="text-2xl font-bold text-yellow-500">Score: <span id="score">0</span></h2>
+        </div>
+    </div>
+
+    <div id="gameOverPopup" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg text-center">
+            <h2 class="text-3xl font-bold text-red-500 mb-4">Game Over</h2>
+            <p class="text-xl">Your Score: <span id="finalScore">0</span></p>
+            <button id="restartButton" class="mt-4 bg-yellow-500 text-black px-4 py-2 rounded">Restart</button>
+            <button id="closeButton" class="mt-4 bg-gray-500 text-white px-4 py-2 rounded">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        const gameOverPopup = document.getElementById('gameOverPopup');
+        const closeButton = document.getElementById('closeButton');
+        const restartButton = document.getElementById('restartButton');
+        const scoreDisplay = document.getElementById('score');
+        const finalScoreDisplay = document.getElementById('finalScore');
+
+        const box = 30;
+        let dog = [];
+        dog[0] = { x: 10 * box, y: 10 * box };
+
+        let food = {
+            x: Math.floor(Math.random() * 19 + 1) * box,
+            y: Math.floor(Math.random() * 19 + 1) * box
+        };
+
+        let score = 0;
+        let d;
+		
+        const dogHeadImgs = {
+            'UP': 'src/dog-up.png',
+            'DOWN': 'src/dog-down.png',
+            'LEFT': 'src/dog-LEFT.png',
+            'RIGHT': 'src/dog-right.png'
+        };
+
+        const foodImg = new Image();
+        foodImg.src = 'https://img.icons8.com/?size=100&id=101711&format=png&color=000000';
+
+        const boxImg = new Image();
+        boxImg.src = 'https://img.icons8.com/?size=100&id=101711&format=png&color=000000';
+
+         document.addEventListener('keydown', direction);
+
+        function direction(event) {
+            if (event.keyCode == 37 && d != 'RIGHT') {
+                d = 'LEFT';
+            } else if (event.keyCode == 38 && d != 'DOWN') {
+                d = 'UP';
+            } else if (event.keyCode == 39 && d != 'LEFT') {
+                d = 'RIGHT';
+            } else if (event.keyCode == 40 && d != 'UP') {
+                d = 'DOWN';
+            }
+        }
+
+        function collision(newHead, dog) {
+            for (let i = 0; i < dog.length; i++) {
+                if (newHead.x == dog[i].x && newHead.y == dog[i].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < dog.length; i++) {
+                if (i == 0) {
+                    const dogHeadImg = new Image();
+                    dogHeadImg.src = dogHeadImgs[d] || dogHeadImgs['RIGHT'];
+                    ctx.drawImage(dogHeadImg, dog[i].x, dog[i].y, box , box);
+                } else {
+                    ctx.drawImage(boxImg, dog[i].x, dog[i].y, box, box);
+                }
+            }
+
+            ctx.drawImage(foodImg, food.x, food.y, box, box);
+
+            let dogX = dog[0].x;
+            let dogY = dog[0].y;
+
+            if (d == 'LEFT') dogX -= box;
+            if (d == 'UP') dogY -= box;
+            if (d == 'RIGHT') dogX += box;
+            if (d == 'DOWN') dogY += box;
+
+            if (dogX == food.x && dogY == food.y) {
+                score++;
+                scoreDisplay.textContent = score;
+                food = {
+                    x: Math.floor(Math.random() * 19 + 1) * box,
+                    y: Math.floor(Math.random() * 19 + 1) * box
+                };
+            } else {
+                dog.pop();
+            }
+
+            let newHead = {
+                x: dogX,
+                y: dogY
+            };
+
+            if (dogX < 0 || dogY < 0 || dogX >= canvas.width || dogY >= canvas.height || collision(newHead, dog)) {
+                clearInterval(game);
+                finalScoreDisplay.textContent = score;
+                gameOverPopup.style.display = 'flex';
+                return;
+            }
+
+            dog.unshift(newHead);
+        }
+
+        let game;
+
+        function startGame() {
+            clearInterval(game);
+            dog = [];
+            dog[0] = { x: 10 * box, y: 10 * box };
+            score = 0;
+            scoreDisplay.textContent = score;
+            d = 'RIGHT';
+            gameOverPopup.style.display = 'none';
+            game = setInterval(draw, 200); // Slowing down the dog speed
+        }
+
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', startGame);
+
+        closeButton.addEventListener('click', () => {
+            gameOverPopup.style.display = 'none';
+        });
+
+        function smoothMove() {
+            let lastTime = 0;
+            function animate(time) {
+                if (time - lastTime >= 200) { // Slowing down the dog speed
+                    draw();
+                    lastTime = time;
+                }
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        }
+
+        startButton.addEventListener('click', smoothMove);
+        restartButton.addEventListener('click', smoothMove);
+    </script>
+</body>
+</html>
