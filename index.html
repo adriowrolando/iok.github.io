@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet"/>
         <style>
-	@media (max-width: 640px) {
+@media (max-width: 640px) {
     /* Home Section */
     #home .flex {
         flex-direction: column;
@@ -34,10 +34,50 @@
         margin-top: 1rem;
     }
 
+    #home h1 {
+        font-size: 2.5rem; /* Ukuran font lebih kecil */
+    }
+
+    #home h3 {
+        font-size: 1.5rem; /* Ukuran font lebih kecil */
+    }
+
+    #home p {
+        font-size: 0.9rem; /* Ukuran font lebih kecil */
+    }
+
+    #home img {
+        width: 250px; /* Ukuran gambar lebih kecil */
+        height: auto;
+    }
+
+    #home button {
+        padding: 0.5rem 1rem; /* Ukuran button lebih kecil */
+        font-size: 0.9rem; /* Ukuran font button lebih kecil */
+    }
+
     /* Services Section */
     #services .grid {
         grid-template-columns: 1fr;
         justify-items: center;
+    }
+
+    #services .flip-card {
+        width: 150px; /* Ukuran card lebih kecil */
+        height: 200px; /* Ukuran card lebih kecil */
+    }
+
+    #services .title {
+        font-size: 1rem; /* Ukuran font lebih kecil */
+    }
+
+    #services p {
+        font-size: 0.8rem; /* Ukuran font lebih kecil */
+    }
+
+    #services button {
+        padding: 0.5rem 1rem; /* Ukuran button lebih kecil */
+        font-size: 0.9rem; /* Ukuran font button lebih kecil */
     }
 
     /* Portfolios Section */
@@ -47,7 +87,17 @@
     }
 
     #portfolios .card {
-        width: 90%;
+        width: 90%; /* Lebar card lebih kecil */
+        height: 250px; /* Tinggi card lebih kecil */
+    }
+
+    #portfolios figcaption {
+        font-size: 0.9rem; /* Ukuran font lebih kecil */
+    }
+
+    #portfolios img {
+        width: 80%; /* Ukuran gambar lebih kecil */
+        height: auto;
     }
 
     /* Freelance Section */
@@ -56,9 +106,23 @@
         justify-items: center;
     }
 
+    #freelance h4 {
+        font-size: 1.2rem; /* Ukuran font lebih kecil */
+    }
+
+    #freelance button {
+        padding: 0.5rem 1rem; /* Ukuran button lebih kecil */
+        font-size: 0.9rem; /* Ukuran font button lebih kecil */
+    }
+
     /* Contact Section */
     #contact .max-w-md {
         width: 90%;
+    }
+
+    #contact a {
+        padding: 0.5rem; /* Ukuran padding lebih kecil */
+        font-size: 0.9rem; /* Ukuran font lebih kecil */
     }
 
     /* General Centering */
@@ -71,48 +135,48 @@
 
     /* Adjust font sizes for mobile */
     h1 {
-        font-size: 1.5rem;
+        font-size: 2rem; /* Ukuran font lebih kecil */
     }
 
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.5rem; /* Ukuran font lebih kecil */
     }
 
     h3 {
-        font-size: 1.1rem;
+        font-size: 1.2rem; /* Ukuran font lebih kecil */
     }
 
     p {
-        font-size: 0.9rem;
+        font-size: 0.9rem; /* Ukuran font lebih kecil */
     }
 
     /* Adjust button sizes for mobile */
     button {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+        padding: 0.5rem 1rem; /* Ukuran button lebih kecil */
+        font-size: 0.9rem; /* Ukuran font button lebih kecil */
     }
 
     /* Adjust image sizes for mobile */
     img {
-        max-width: 100%;
+        max-width: 100%; /* Gambar menyesuaikan lebar container */
         height: auto;
     }
 
     /* Adjust card sizes for mobile */
     .card {
-        padding: 1rem;
+        padding: 1rem; /* Padding lebih kecil */
     }
 
     .card img {
-        max-width: 100%;
+        max-width: 100%; /* Gambar menyesuaikan lebar card */
         height: auto;
     }
 
     .card button {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+        padding: 0.5rem 1rem; /* Ukuran button lebih kecil */
+        font-size: 0.9rem; /* Ukuran font button lebih kecil */
     }
-	}
+}
         body {
             font-family: 'Roboto', sans-serif;
             scroll-behavior: smooth;
