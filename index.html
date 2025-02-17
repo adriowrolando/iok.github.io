@@ -9,66 +9,110 @@
     <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet"/>
         <style>
-		 @media (max-width: 640px) {
-            /* Home Section */
-            #home .flex {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
+	@media (max-width: 640px) {
+    /* Home Section */
+    #home .flex {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 
-            #home .text-left {
-                text-align: center;
-                margin-left: 0;
-            }
+    #home .text-left {
+        text-align: center;
+        margin-left: 0;
+    }
 
-            #home .ml-20 {
-                margin-left: 0;
-            }
+    #home .ml-20 {
+        margin-left: 0;
+    }
 
-            #home .translate-x-20 {
-                transform: translateX(0);
-            }
+    #home .translate-x-20 {
+        transform: translateX(0);
+    }
 
-            #home .mt-10 {
-                margin-top: 1rem;
-            }
+    #home .mt-10 {
+        margin-top: 1rem;
+    }
 
-            /* Services Section */
-            #services .grid {
-                grid-template-columns: 1fr;
-                justify-items: center;
-            }
+    /* Services Section */
+    #services .grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 
-            /* Portfolios Section */
-            #portfolios .cards {
-                grid-template-columns: 1fr;
-                justify-items: center;
-            }
+    /* Portfolios Section */
+    #portfolios .cards {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 
-            #portfolios .card {
-                width: 90%;
-            }
+    #portfolios .card {
+        width: 90%;
+    }
 
-            /* Freelance Section */
-            #freelance .grid {
-                grid-template-columns: 1fr;
-                justify-items: center;
-            }
+    /* Freelance Section */
+    #freelance .grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 
-            /* Contact Section */
-            #contact .max-w-md {
-                width: 90%;
-            }
+    /* Contact Section */
+    #contact .max-w-md {
+        width: 90%;
+    }
 
-            /* General Centering */
-            section {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-        }
+    /* General Centering */
+    section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Adjust font sizes for mobile */
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust button sizes for mobile */
+    button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust image sizes for mobile */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Adjust card sizes for mobile */
+    .card {
+        padding: 1rem;
+    }
+
+    .card img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .card button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+	}
         body {
             font-family: 'Roboto', sans-serif;
             scroll-behavior: smooth;
